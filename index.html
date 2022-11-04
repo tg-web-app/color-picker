@@ -13,15 +13,20 @@
         text-align: center;
         color: var(--tg-theme-text-color);
         background: var(--tg-theme-bg-color);
-        display: contents;
     }
 
     input {
-        width: 40%;
-        height: 75px;
         text-align: center;
+        width: 100px;
+        height: 100px;
         background: var(--tg-theme-button-color);
 	    color: var(--tg-theme-button-text-color);
+    }
+
+    main {
+        display: flex;
+        justify-content: center;
+        text-align: center;
     }
 
     label {
@@ -37,6 +42,7 @@
 <body>
     <h1>Choose your palette:</h1>
 
+    <main>
     <div class="color">
         <input type="color" id="bg" name="bg" value="#ffa656">
         <!-- <label for="bg" id="bg-text">Background color</label> -->
@@ -61,13 +67,14 @@
         <input type="color" id="additional" name="additional" value="#822900">
         <!-- <label for="additional" id="additional-text">Additional color</label> -->
     </div>
+    </main>
 
 </body>
 
 <script>
     let tg = window.Telegram.WebApp; //получаем объект webapp телеграма 
 
-    tg.expand();
+    //tg.expand();
     tg.MainButton.text = "Save palette";
     tg.MainButton.show();
 
