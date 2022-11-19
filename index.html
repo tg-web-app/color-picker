@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Palette</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 
@@ -13,6 +16,7 @@
         text-align: center;
         color: var(--tg-theme-text-color);
         background: var(--tg-theme-bg-color);
+        font-family: 'Roboto Condensed', sans-serif;
     }
 
     input {
@@ -26,11 +30,11 @@
     button {
             display: block;
             width: 100%;
-            font-size: 14px;
             margin: 15px 0;
             padding: 12px 20px;
             border: none;
             border-radius: 4px;
+            font-size: larger;
             background-color: var(--tg-theme-button-color, #50a8eb);
             color: var(--tg-theme-button-text-color, #ffffff);
             cursor: pointer;
@@ -55,7 +59,7 @@
 </style>
 
 <body>
-    <h1>Choose your palette:</h1>
+    <!-- <h1>Choose your palette:</h1> -->
 
     <main>
     <div class="palette">
