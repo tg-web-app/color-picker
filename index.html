@@ -92,9 +92,12 @@
 
 <script>
     window.addEventListener("load", (event) => {
-        document.cookie = "color=1; expires=1000000; path=/";
-        console.log(document.cookie);
-        console.log("test");
+        let color = document.cookie.split(";")[0];
+        let colorValues = color.split("=")[1].split(",");
+        let colorInputs = document.querySelectorAll("input");
+        for (let i = 0; i++; i < colorValues) {
+            colorInputs[i] = colorValues[i];
+        }
     });
 
     Telegram.WebApp.ready();
@@ -108,6 +111,7 @@
             "accent": document.getElementById("accent").value,
             "additional": document.getElementById("additional").value
         }
+        document.cookie = `color=${Object.values(data).join(",")}; expires=${365*24*60*60}; path=/`;
 	    Telegram.WebApp.sendData(JSON.stringify(data)); 
     }
     
