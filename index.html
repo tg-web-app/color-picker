@@ -94,10 +94,13 @@
     window.addEventListener("load", (event) => {
         let color = document.cookie.split(";")[0];
         let colorValues = color.split("=")[1].split(",");
-        let colorInputs = document.querySelectorAll("input");
-        for (let i = 0; i++; i < colorValues) {
-            colorInputs[i] = colorValues[i];
-        }
+        
+        console.log(colorValues);
+        document.getElementById("bg").value = colorValues[0];
+        document.getElementById("primary").value = colorValues[1];
+        document.getElementById("secondary").value = colorValues[2];
+        document.getElementById("accent").value = colorValues[3];
+        document.getElementById("additional").value = colorValues[4];
     });
 
     Telegram.WebApp.ready();
