@@ -116,7 +116,7 @@
         }
         document.cookie = `color=${Object.values(data).join(",")}; expires=${365*24*60*60}; path=/`;
 	    Telegram.WebApp.sendData(JSON.stringify(data)); 
+        Telegram.WebApp.close();
     }
-    
 </script>
 </html>
