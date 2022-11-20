@@ -1,10 +1,10 @@
 var currentColor = document.getElementById("bg");
 
 function selectColor(button) {
-    button.style.outline = "7px solid"; 
-    button.style.outlineColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--tg-theme-button-color"); 
-    currentColor.style.outline = "2px solid"; 
-    currentColor.style.outlineColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--tg-theme-secondary-bg-color"); 
+    let selectColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--tg-theme-button-color");
+    let unselectColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--tg-theme-secondary-bg-color"); 
+    button.style.boxShadow = `0px 0px 0px 5px ${selectColor}`; 
+    currentColor.style.boxShadow = `0px 0px 0px 2px ${selectColor}`;
     currentColor = button;
 }
 
