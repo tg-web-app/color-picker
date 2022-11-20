@@ -12,38 +12,41 @@
 </head>
 
 <style>
-    body {
+    main {
         text-align: center;
-        color: var(--tg-theme-text-color);
-        background: var(--tg-theme-bg-color);
+        /* color: var(--tg-theme-text-color); */
+        /* background: var(--tg-theme-bg-color); */
         font-family: 'Roboto Condensed', sans-serif;
     }
 
-    input {
+    .input {
         text-align: center;
         width: 100%;
-        height: 100px;
-        background: var(--tg-theme-button-color);
-	    color: var(--tg-theme-button-text-color);
+        height: 100%;
+        border-radius: 50%;
+        background-color: var(--tg-theme-bg-color, #ffffff);
+        color: var(--tg-theme-button-text-color, #ffffff);
+        /* background: var(--tg-theme-button-color); */
+	    /* color: var(--tg-theme-button-text-color); */
+        outline: black 2px solid;
     }
 
     button {
-            display: block;
-            width: 100%;
-            margin: 15px 0;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            font-size: larger;
-            background-color: var(--tg-theme-button-color, #50a8eb);
-            color: var(--tg-theme-button-text-color, #ffffff);
-            cursor: pointer;
+        display: block;
+        width: 100%;
+        margin: 15px 0;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: larger;
+        background-color: var(--tg-theme-button-color, #50a8eb);
+        color: var(--tg-theme-button-text-color, #ffffff);
+        cursor: pointer;
         }
 
     .palette {
         display: flex;
         justify-content: center;
-        text-align: center;
     }
 
     label {
@@ -54,6 +57,7 @@
         position: relative;
         width: 20%;
         aspect-ratio: 1;
+        outline: 0px solid;
     }
 
     .line {
@@ -61,6 +65,34 @@
         width: 100%;
         height: 5px;
         visibility: visible;
+    }
+
+    .container {
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+    }
+
+    #color-picker {
+        position: relative;
+        width: 100%;
+        height: 150px;
+        margin: 5px;
+        outline: 3px solid;
+        outline-color: var(--tg-theme-secondary-bg-color, #50a8eb);
+        cursor: pointer;
+    }
+
+    .color-cursor {
+        position: absolute;
+        border-radius: 100%;
+        visibility: hidden;
+        width:  20px;
+        height: 20px;
+        z-index: 10000;
+        color: rgba(0, 0, 0, 0);
+        outline: 1px solid;
+        outline-color: var(--tg-theme-text-color, black);
     }
 
 </style>
@@ -71,38 +103,53 @@
     <main>
     <div class="palette">
         <div class="color">
-            <input type="color" id="bg" name="bg" value="#ffa656">
+            <button class="input" onclick="selectColor(this)" id="bg" name="bg" value="#ffa656"></button>
+            <!-- <input type="button" onclick="selectColor(this)" id="bg" name="bg" value="#ffa656"> -->
+
             <!-- <label for="bg" id="bg-text">Background color</label> -->
         </div>
 
         <div class="color">
-            <input type="color" id="primary" name="primary" value="#ff6600">
+            <!-- <input type="button" onclick="selectColor(this)" id="primary" name="primary" value="#ff6600"> -->
+            <button class="input" onclick="selectColor(this)" id="primary" name="bg" value="#ffa656"></button>
+
             <!-- <label for="primary" id="primary-text">Primary color</label> -->
         </div>
 
         <div class="color">
-            <input type="color" id="secondary" name="secondary" value="#ffd084">
+            <!-- <input type="button" onclick="selectColor(this)" id="secondary" name="secondary" value="#ffd084"> -->
+            <button class="input" onclick="selectColor(this)" id="secondary" name="bg" value="#ffa656"></button>
+
             <!-- <label for="secondary" id="secondary-text">Secondary color</label> -->
         </div>
 
         <div class="color">
-            <input type="color" id="accent" name="accent" value="#3d0606">
+            <!-- <input type="button" onclick="selectColor(this)" id="accent" name="accent" value="#3d0606"> -->
+            <button class="input" onclick="selectColor(this)" id="accent" name="bg" value="#ffa656"></button>
+
             <!-- <label for="accent" id="accent-text">Accent color</label> -->
         </div>
 
         <div class="color">
-            <input type="color" id="additional" name="additional" value="#822900">
+            <!-- <input type="button" onclick="selectColor(this)" id="additional" name="additional" value="#822900"> -->
+            <button class="input" onclick="selectColor(this)" id="additional" name="bg" value="#ffa656"></button>
+
             <!-- <label for="additional" id="additional-text">Additional color</label> -->
         </div>
     </div>
-    <button onclick="savePalette()">Save palette</button>
-    <div class="line">
 
+    <div class="color-cursor" id="cursor"></div>
+    <div class="container">
+        <canvas id="color-picker"></canvas>
     </div>
+
+    <button onclick="savePalette()">Save palette</button>
+    <div class="line"></div>
+
     </main>
 
 </body>
-
+<script src="color-picker.js""></script>
 <script>
     window.addEventListener("load", (event) => {
         let color = document.cookie.split(";")[0];
