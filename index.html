@@ -23,13 +23,15 @@
         text-align: center;
         width: 100%;
         height: 100%;
-        border-radius: 50%;
-        background: var(--tg-theme-bg-color, #ffffff);
+        border-radius: 100%;
+        border: none;
+        background-color: var(--tg-theme-button-color, #50a8eb);
         color: var(--tg-theme-button-text-color, #ffffff);
-        outline: black 2px solid;
+        outline: var(--tg-theme-button-text-color, transparent) 2px solid;
+        cursor: pointer;
     }
 
-    button {
+    .main-button {
         display: block;
         width: 100%;
         margin: 15px 0;
@@ -54,6 +56,7 @@
     div.color {
         position: relative;
         width: 20%;
+        padding: 5px;
         aspect-ratio: 1;
         outline: 0px solid;
     }
@@ -142,7 +145,7 @@
         <canvas id="color-picker"></canvas>
     </div>
 
-    <button onclick="savePalette()">Save palette</button>
+    <button class="main-button" onclick="savePalette()">Save palette</button>
     <div class="line"></div>
 
     </main>
