@@ -4,9 +4,9 @@ function selectColor(button) {
     if (button == currentColor) return;
 
     let selectColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--tg-theme-button-color");
-    let unselectColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--tg-theme-secondary-bg-color"); 
+    // let unselectColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--tg-theme-secondary-bg-color"); 
     button.style.boxShadow = `0px 0px 0px 5px ${selectColor}`; 
-    currentColor.style.boxShadow = `0px 0px 0px 0px ${unselectColor}`;
+    currentColor.style.boxShadow = `0px 0px 0px 0px transparent`;
     currentColor = button;
 }
 
