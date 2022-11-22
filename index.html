@@ -125,28 +125,28 @@
 
         <div class="color">
             <!-- <input type="button" onclick="selectColor(this)" id="primary" name="primary" value="#ff6600"> -->
-            <button class="input" onclick="selectColor(this)" id="primary" name="bg" value="#ffa656"></button>
+            <button class="input" onclick="selectColor(this)" id="primary" name="bg" value="#ff6600"></button>
 
             <!-- <label for="primary" id="primary-text">Primary color</label> -->
         </div>
 
         <div class="color">
             <!-- <input type="button" onclick="selectColor(this)" id="secondary" name="secondary" value="#ffd084"> -->
-            <button class="input" onclick="selectColor(this)" id="secondary" name="bg" value="#ffa656"></button>
+            <button class="input" onclick="selectColor(this)" id="secondary" name="bg" value="#ffd084"></button>
 
             <!-- <label for="secondary" id="secondary-text">Secondary color</label> -->
         </div>
 
         <div class="color">
             <!-- <input type="button" onclick="selectColor(this)" id="accent" name="accent" value="#3d0606"> -->
-            <button class="input" onclick="selectColor(this)" id="accent" name="bg" value="#ffa656"></button>
+            <button class="input" onclick="selectColor(this)" id="accent" name="bg" value="#3d0606"></button>
 
             <!-- <label for="accent" id="accent-text">Accent color</label> -->
         </div>
 
         <div class="color">
             <!-- <input type="button" onclick="selectColor(this)" id="additional" name="additional" value="#822900"> -->
-            <button class="input" onclick="selectColor(this)" id="additional" name="bg" value="#ffa656"></button>
+            <button class="input" onclick="selectColor(this)" id="additional" name="bg" value="#822900"></button>
 
             <!-- <label for="additional" id="additional-text">Additional color</label> -->
         </div>
@@ -165,16 +165,40 @@
 </body>
 <script src="color-picker.js""></script>
 <script>
+//https://stackoverflow.com/questions/49974145/how-to-convert-rgba-to-hex-color-code-using-javascript
+function rgba2hex(rgba, forceRemoveAlpha=false) {
+    if (rgba[0] == "#") return rgba;
+    
+    return "#" + rgba.replace(/^rgba?\(|\s+|\)$/g, '') // Get's rgba / rgb string values
+    .split(',') // splits them at ","
+    .filter((string, index) => !forceRemoveAlpha || index !== 3)
+    .map(string => parseFloat(string)) // Converts them to numbers
+    .map((number, index) => index === 3 ? Math.round(number * 255) : number) // Converts alpha to 255 number
+    .map(number => number.toString(16)) // Converts numbers to hex
+    .map(string => string.length === 1 ? "0" + string : string) // Adds 0 when length of one number is 1
+    .join("") // Puts the array to togehter to a string
+}
+</script>
+<script>
     window.addEventListener("load", (event) => {
         let color = document.cookie.split(";")[0];
-        let colorValues = color.split("=")[1].split(",");
-        
-        console.log(colorValues);
-        document.getElementById("bg").value = colorValues[0];
-        document.getElementById("primary").value = colorValues[1];
-        document.getElementById("secondary").value = colorValues[2];
-        document.getElementById("accent").value = colorValues[3];
-        document.getElementById("additional").value = colorValues[4];
+        try {
+            let colorValues = color.split("=")[1].split(",");
+            document.getElementById("bg").value = colorValues[0];
+            document.getElementById("primary").value = colorValues[1];
+            document.getElementById("secondary").value = colorValues[2];
+            document.getElementById("accent").value = colorValues[3];
+            document.getElementById("additional").value = colorValues[4];
+        } catch (e) {
+
+        }
+
+        //console.log(colorValues);
+        document.getElementById("bg").style.background = document.getElementById("bg").value;
+        document.getElementById("primary").style.background = document.getElementById("primary").value;
+        document.getElementById("secondary").style.background = document.getElementById("secondary").value;
+        document.getElementById("accent").style.background = document.getElementById("accent").value;
+        document.getElementById("additional").style.background = document.getElementById("additional").value;
     });
 
     Telegram.WebApp.ready();
@@ -182,12 +206,13 @@
 
     function savePalette() {
         let data = {
-            "bg": document.getElementById("bg").value,
-            "primary": document.getElementById("primary").value,
-            "secondary": document.getElementById("secondary").value,
-            "accent": document.getElementById("accent").value,
-            "additional": document.getElementById("additional").value
+            "bg": rgba2hex(document.getElementById("bg").value, true),
+            "primary": rgba2hex(document.getElementById("primary").value, true),
+            "secondary": rgba2hex(document.getElementById("secondary").value, true),
+            "accent": rgba2hex(document.getElementById("accent").value, true),
+            "additional": rgba2hex(document.getElementById("additional").value, true)
         }
+        console.log(data);
         document.cookie = `color=${Object.values(data).join(",")}; expires=${365*24*60*60}; path=/`;
 	    Telegram.WebApp.sendData(JSON.stringify(data)); 
         Telegram.WebApp.close();
