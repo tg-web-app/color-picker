@@ -1,6 +1,7 @@
 var currentColor = document.getElementById("bg");
 
 function selectColor(button) {
+    Telegram.WebApp.HapticFeedback.selectionChanged();
     if (button == currentColor) return;
 
     let selectColor = getComputedStyle(document.querySelector(":root")).getPropertyValue("--tg-theme-button-color");
@@ -40,6 +41,7 @@ function initColorPicker() {
     ctx.fillRect(0, 0, canvas.width, canvas.height)
   
     canvas.onclick = function(e) {
+        Telegram.WebApp.HapticFeedback.selectionChanged();
         const x = (e.offsetX / canvas.clientWidth) * canvas.width;
         const y = (e.offsetY / canvas.clientHeight) * canvas.height;
         let imgData = ctx.getImageData(x, y, 1, 1);
